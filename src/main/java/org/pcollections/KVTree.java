@@ -301,6 +301,39 @@ final class KVTree<K, V> implements Map.Entry<K, V>, Serializable {
   }
 
   /**
+   * @return the number of elements to the left of <code>key</code> if the key is present in the tree;
+   * otherwise, <code>(-n - 1)</code> where <code>n</code> is the result that would be
+   * returned if the key were added and then this method were called again.
+   * @see java.util.Arrays#binarySearch
+   */
+  public int indexOf(final K key, final Comparator<? super K> comparator) {
+    return indexOf(key, comparator, this);
+  }
+
+  /**
+   * Static implementation method to make sure we use <code>currNode</code>
+   * instead of <code>this</code> by accident.
+   */
+  private static <KK,VV> int indexOf(final KK key, final Comparator<? super KK> comparator, KVTree<KK, VV> currNode) {
+    int ancestorsLeftSize = 0;
+    while (true) {
+      if (currNode.isEmpty()) {
+        // We've found an empty node where our desired element ought to be.
+        return - ancestorsLeftSize - 1;
+      }
+      final int cmp = comparator.compare(key, currNode.key);
+      if (cmp < 0) {
+        currNode = currNode.left;
+      } else if (cmp == 0) {
+        return ancestorsLeftSize + currNode.left.size;
+      } else {
+        ancestorsLeftSize += currNode.left.size + 1; // +1 for currNode itself
+        currNode = currNode.right;
+      }
+    }
+  }
+
+  /**
    * @return Whether this tree contains any mappings (i.e., whether its size is 0).
    */
   boolean isEmpty() {
