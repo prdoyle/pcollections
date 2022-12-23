@@ -86,7 +86,7 @@ final class KVTree<K, V> implements Map.Entry<K, V>, Serializable {
   }
 
   /**
-   * Constructor for a non-empty/non-leaf node. Only intended to be called via {@link #join()},
+   * Constructor for a non-empty/non-leaf node. Only intended to be called via {@link #join},
    * which takes the same parameters but also handles rebalancing if needed. (This constructor just
    * throws an exception if 'left' and 'right' have mismatched heights.)
    */
