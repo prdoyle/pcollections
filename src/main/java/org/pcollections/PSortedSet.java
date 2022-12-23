@@ -163,6 +163,16 @@ public interface PSortedSet<E> extends PSet<E>, NavigableSet<E> {
   public PSortedSet<E> tailSet(E fromElement, boolean inclusive);
 
   /**
+   * @return the number of elements to the left of <code>element</code> if the element is present in this set;
+   * otherwise, <code>(-n - 1)</code> where <code>n</code> is the result that would be
+   * returned if the element were added and then this method were called again.
+   * @see java.util.Arrays#binarySearch
+   * @see OrderedPSet#indexOf
+   * @see PSortedMap#indexOf
+   */
+  public int indexOf(E element);
+
+  /**
    * @throws UnsupportedOperationException always
    * @deprecated Unsupported operation.
    */

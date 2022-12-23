@@ -98,4 +98,23 @@ public class OrderedPSet<E> extends AbstractUnmodifiableSet<E> implements PSet<E
   public int size() {
     return ids.size();
   }
+
+  /**
+   * @return the number of elements to the left of <code>element</code> if the element is present in this set;
+   * otherwise, <code>(-n - 1)</code> where <code>n</code> is the result that would be
+   * returned if the element were added and then this method were called again.
+   * @see java.util.Arrays#binarySearch
+   * @see PSortedSet#indexOf
+   * @see OrderedPMap#indexOf
+   */
+  public int indexOf(E element) {
+    Long id = ids.get(element);
+    if (id == null) {
+      int nextIndex = size(); // New entries always go at the end
+      return -nextIndex - 1;
+    } else {
+      return elements.indexOf(id);
+    }
+  }
+
 }

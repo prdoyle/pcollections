@@ -65,6 +65,24 @@ public class OrderedPMap<K, V> extends AbstractUnmodifiableMap<K, V>
     return entries.get(id).getValue();
   }
 
+  /**
+   * @return the number of elements to the left of <code>key</code> if the key is present in this map;
+   * otherwise, <code>(-n - 1)</code> where <code>n</code> is the result that would be
+   * returned if the key were added and then this method were called again.
+   * @see java.util.Arrays#binarySearch
+   * @see PSortedMap#indexOf
+   * @see OrderedPSet#indexOf
+   */
+  public int indexOf(K key) {
+    Long id = ids.get(key);
+    if (id == null) {
+      int nextIndex = size(); // New entries always go at the end
+      return -nextIndex - 1;
+    } else {
+      return entries.indexOf(id);
+    }
+  }
+
   @Override
   public OrderedPMap<K, V> plus(final K k, final V v) {
     Long id = ids.get(k);

@@ -423,6 +423,11 @@ public final class TreePSet<E> extends AbstractUnmodifiableSet<E>
             : this.tree.rangeToLeft(fromElement, inclusive, this.ltrComparator));
   }
 
+  @Override
+  public int indexOf(E element) {
+    return tree.indexOf(element, comparator());
+  }
+
   private TreePSet<E> withTree(final KVTree<E, ?> tree) {
     return tree == this.tree ? this : new TreePSet<E>(tree, this.ltrComparator, this.isLeftToRight);
   }

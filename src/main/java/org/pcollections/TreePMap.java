@@ -475,6 +475,11 @@ public final class TreePMap<K, V> extends AbstractUnmodifiableMap<K, V>
   }
 
   @Override
+  public int indexOf(K key) {
+    return tree.indexOf(key, comparator());
+  }
+
+  @Override
   public TreePSet<K> navigableKeySet() {
     return this.keySet();
   }

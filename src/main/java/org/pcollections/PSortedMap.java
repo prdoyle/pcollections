@@ -144,6 +144,16 @@ public interface PSortedMap<K, V> extends PMap<K, V>, NavigableMap<K, V> {
   public PSortedMap<K, V> minusLastEntry();
 
   /**
+   * @return the number of elements to the left of <code>key</code> if the key is present in this map;
+   * otherwise, <code>(-n - 1)</code> where <code>n</code> is the result that would be
+   * returned if the key were added and then this method were called again.
+   * @see java.util.Arrays#binarySearch
+   * @see OrderedPMap#indexOf
+   * @see PSortedSet#indexOf
+   */
+  public int indexOf(K key);
+
+  /**
    * @throws UnsupportedOperationException - always
    * @deprecated Unsupported operation.
    */
