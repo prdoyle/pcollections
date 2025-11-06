@@ -35,7 +35,7 @@ java {
         // our code works with Java 8, but module-info.java only works with Java 9+
         // we used to use `modularity.mixedJavaRelease 8` to deal with this,
         // but Java 8 is old enough now that simpler build process wins
-        languageVersion = JavaLanguageVersion.of(9)
+        languageVersion = JavaLanguageVersion.of(21)
     }
     withSourcesJar()
     withJavadocJar()

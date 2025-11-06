@@ -475,6 +475,11 @@ public final class TreePMap<K, V> extends AbstractUnmodifiableMap<K, V>
   }
 
   @Override
+  public PSortedMap<K, V> reversed() {
+  	return descendingMap();
+  }
+
+  @Override
   public TreePSet<K> navigableKeySet() {
     return this.keySet();
   }

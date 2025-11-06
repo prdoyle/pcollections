@@ -143,7 +143,7 @@ public interface PSortedMap<K, V> extends PMap<K, V>, NavigableMap<K, V> {
    */
   public PSortedMap<K, V> minusLastEntry();
 
-  /**
+	/**
    * @throws UnsupportedOperationException - always
    * @deprecated Unsupported operation.
    */
@@ -162,4 +162,8 @@ public interface PSortedMap<K, V> extends PMap<K, V>, NavigableMap<K, V> {
   default Map.Entry<K, V> pollLastEntry() {
     throw new UnsupportedOperationException("This map instance is unmodifiable");
   }
+
+  @Override
+  PSortedMap<K, V> reversed();
+
 }

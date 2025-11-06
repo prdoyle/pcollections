@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.SequencedMap;
 import java.util.Set;
 
 /**
@@ -28,7 +29,7 @@ import java.util.Set;
  * @param <V>
  */
 public class OrderedPMap<K, V> extends AbstractUnmodifiableMap<K, V>
-    implements PMap<K, V>, Serializable {
+    implements PMap<K, V>, SequencedMap<K, V>, Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -83,9 +84,13 @@ public class OrderedPMap<K, V> extends AbstractUnmodifiableMap<K, V>
 
   @Override
   public OrderedPMap<K, V> plusAll(final Map<? extends K, ? extends V> map) {
+	  return this.plusAll(map.entrySet());
+  }
+
+  private OrderedPMap<K, V> plusAll(Collection<? extends Entry<? extends K, ? extends V>> entries) {
     OrderedPMap<K, V> m = this;
-    for (final Entry<? extends K, ? extends V> e : map.entrySet()) {
-      m = m.plus(e.getKey(), e.getValue());
+    for (final Entry<? extends K, ? extends V> e : entries) {
+    m = m.plus(e.getKey(), e.getValue());
     }
     return m;
   }
@@ -133,5 +138,10 @@ public class OrderedPMap<K, V> extends AbstractUnmodifiableMap<K, V>
   @Override
   public int size() {
     return ids.size();
+  }
+
+  @Override
+  public SequencedMap<K, V> reversed() {
+    return OrderedPMap.<K,V>empty().plusAll(entries.reversed().values());
   }
 }

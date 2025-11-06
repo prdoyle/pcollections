@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.SequencedSet;
 
 /**
  * Like {@link PSet} but preserves insertion order. Persistent equivalent of {@link LinkedHashSet}.
@@ -22,7 +23,7 @@ import java.util.LinkedHashSet;
  *
  * @param <E>
  */
-public class OrderedPSet<E> extends AbstractUnmodifiableSet<E> implements PSet<E>, Serializable {
+public class OrderedPSet<E> extends AbstractUnmodifiableSet<E> implements PSet<E>, SequencedSet<E>, Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -103,4 +104,9 @@ public class OrderedPSet<E> extends AbstractUnmodifiableSet<E> implements PSet<E
   public int size() {
     return ids.size();
   }
+
+	@Override
+	public SequencedSet<E> reversed() {
+		return new OrderedPSet<>(ids, elements.reversed());
+	}
 }
